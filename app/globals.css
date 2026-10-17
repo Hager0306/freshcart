@@ -1,0 +1,84 @@
+@import url("https://fonts.googleapis.com/css2?family=Exo:wght@100..900&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Exo", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --color-primary-50: #f0fdf4;
+  --color-primary-100: #dcfce7;
+  --color-primary-200: #bbf7d0;
+  --color-primary-300: #86efac;
+  --color-primary-400: #4ade80;
+  --color-primary-500: #22c55e;
+  --color-primary-600: #16a34a;
+  --color-primary-700: #15803d;
+  --color-primary-800: #166534;
+  --color-primary-900: #14532d;
+}
+
+@utility container {
+  margin-inline: auto;
+}
+
+.hero-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.6);
+  transition: all 0.2s;
+}
+.hero-dot[data-active="true"] {
+  width: 24px;
+  background: #fff;
+}
+
+/* the demo layout is full-width: container never caps its width */
+.container {
+  max-width: none;
+}
+
+/* never allow sideways page scrolling */
+html,
+body {
+  overflow-x: clip;
+}
+
+/* ---------- scroll-reveal animation ---------- */
+/* hidden until RevealObserver animates it in (Web Animations API, fill: both) */
+[data-reveal] { opacity: 0; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+/* hero copy animates in each time its slide becomes active */
+.hero-slide[data-active="true"] .hero-copy > * {
+  animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.hero-slide[data-active="true"] .hero-copy > *:nth-child(2) { animation-delay: 0.12s; }
+.hero-slide[data-active="true"] .hero-copy > *:nth-child(3) { animation-delay: 0.24s; }
+.hero-slide[data-active="true"] .hero-bg {
+  animation: heroZoom 6s ease-out both;
+}
+@keyframes heroZoom {
+  from { transform: scale(1.08); }
+  to { transform: scale(1); }
+}
+
+/* card lift on hover */
+.lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px -8px rgb(0 0 0 / 0.15);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] { opacity: 1; }
+  .hero-slide[data-active="true"] .hero-copy > *,
+  .hero-slide[data-active="true"] .hero-bg { animation: none; }
+}
